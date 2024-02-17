@@ -23,6 +23,21 @@ def listar_documentos(request):
     return render(request, "listar_documentos.html", {"documentos": documentos})
 
 
+def home_listar_documentos(request):
+    documentos = DocumentoColaborador.objects.all()
+    for documento in documentos:
+        tamanho_total = 0
+        if documento.rg:
+            tamanho_total += documento.rg.size
+        if documento.cpf:
+            tamanho_total += documento.cpf.size
+        if documento.certidao_nascimento:
+            tamanho_total += documento.certidao_nascimento.size
+        # Convertendo bytes para megabytes
+        documento.tamanho_mb = tamanho_total / (1024 * 1024)
+    return render(request, "home.html", {"documentos": documentos})
+
+
 def upload_documento(request):
     if request.method == "POST":
         form = DocumentoColaboradorForm(request.POST, request.FILES)
