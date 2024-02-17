@@ -14,6 +14,7 @@
             {% if documento.rg %} <a href="{{ documento.rg.url }}" target="_blank">RG</a> {% endif %}
             {% if documento.cpf %} <a href="{{ documento.cpf.url }}" target="_blank">CPF</a> {% endif %}
             {% if documento.certidao_nascimento %} <a href="{{ documento.certidao_nascimento.url }}" target="_blank">Certidão de Nascimento</a> {% endif %}
+            <span>{{ documento.tamanho_mb|floatformat:2 }} MB</span>
             <a href="{% url 'download_documentos_colaborador' documento.id %}">Baixar Todos os Documentos</a>
 
             
