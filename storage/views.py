@@ -6,6 +6,7 @@ import zipfile
 from django.http import HttpResponse
 from django.core.files.base import ContentFile
 from io import BytesIO
+from django.views.generic import ListView
 
 
 def listar_documentos(request):
@@ -23,19 +24,24 @@ def listar_documentos(request):
     return render(request, "listar_documentos.html", {"documentos": documentos})
 
 
-def home_listar_documentos(request):
-    documentos = DocumentoColaborador.objects.all()
-    for documento in documentos:
-        tamanho_total = 0
-        if documento.rg:
-            tamanho_total += documento.rg.size
-        if documento.cpf:
-            tamanho_total += documento.cpf.size
-        if documento.certidao_nascimento:
-            tamanho_total += documento.certidao_nascimento.size
-        # Convertendo bytes para megabytes
-        documento.tamanho_mb = tamanho_total / (1024 * 1024)
-    return render(request, "home.html", {"documentos": documentos})
+class HomeListarDocumentosView(ListView):
+    model = DocumentoColaborador
+    template_name = "home.html"
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        documentos = context["object_list"]
+        for documento in documentos:
+            tamanho_total = 0
+            if documento.rg:
+                tamanho_total += documento.rg.size
+            if documento.cpf:
+                tamanho_total += documento.cpf.size
+            if documento.certidao_nascimento:
+                tamanho_total += documento.certidao_nascimento.size
+            documento.tamanho_mb = tamanho_total / (1024 * 1024)
+        return context
 
 
 def upload_documento(request):

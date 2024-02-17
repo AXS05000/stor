@@ -950,7 +950,7 @@
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
                   >
-                  {% for documento in documentos %}
+                  {% for documento in page_obj  %}
                     <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
@@ -1013,18 +1013,6 @@
                   Showing 21-30 of 100
                 </span>
                 <span class="col-span-2"></span>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 
                 <!-- Pagination -->
                 <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">

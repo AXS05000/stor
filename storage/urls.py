@@ -5,12 +5,12 @@ from .views import (
     listar_documentos,
     upload_documento,
     download_documentos_colaborador,
-    home_listar_documentos,
+    HomeListarDocumentosView,
 )
 
 urlpatterns = [
     path("listagem/", listar_documentos, name="listar_documentos"),
-    path("home/", home_listar_documentos, name="home_listar_documentos"),
+    path("home/", HomeListarDocumentosView.as_view(), name="home_listar_documentos"),
     path("upload_documentos/", upload_documento, name="upload_documento"),
     path(
         "download/documentos/<int:colaborador_id>/",
