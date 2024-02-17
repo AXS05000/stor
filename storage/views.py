@@ -27,11 +27,11 @@ def listar_documentos(request):
 class HomeListarDocumentosView(ListView):
     model = DocumentoColaborador
     template_name = "home.html"
-    paginate_by = 20
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        documentos = context["object_list"]
+        documentos = context.get("object_list")
         for documento in documentos:
             tamanho_total = 0
             if documento.rg:
