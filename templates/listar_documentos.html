@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Documentos</title>
+</head>
+<body>
+    <h2>Documentos dos Colaboradores</h2>
+    <ul>
+    {% for documento in documentos %}
+        <li>
+            {{ documento.nome_colaborador }}:
+            {% if documento.rg %} <a href="{{ documento.rg.url }}" target="_blank">RG</a> {% endif %}
+            {% if documento.cpf %} <a href="{{ documento.cpf.url }}" target="_blank">CPF</a> {% endif %}
+            {% if documento.certidao_nascimento %} <a href="{{ documento.certidao_nascimento.url }}" target="_blank">Certidão de Nascimento</a> {% endif %}
+            <a href="{% url 'download_documentos_colaborador' documento.id %}">Baixar Todos os Documentos</a>
+
+            
+        </li>
+    {% endfor %}
+    </ul>
+
+    <a href="{% url 'upload_documento' %}">Upload Novo Documento</a>
+</body>
+</html>
