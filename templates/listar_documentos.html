@@ -15,6 +15,7 @@
             {% if documento.cpf %} <a href="{{ documento.cpf.url }}" target="_blank">CPF</a> {% endif %}
             {% if documento.certidao_nascimento %} <a href="{{ documento.certidao_nascimento.url }}" target="_blank">Certidão de Nascimento</a> {% endif %}
             <span>{{ documento.tamanho_mb|floatformat:2 }} MB</span>
+            <span>Status: {% if documento.rg and documento.cpf and documento.certidao_nascimento %}Completo{% else %}Incompleto{% endif %}</span>
             <a href="{% url 'download_documentos_colaborador' documento.id %}">Baixar Todos os Documentos</a>
 
             
