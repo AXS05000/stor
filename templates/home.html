@@ -74,7 +74,7 @@
             <li class="relative px-6 py-3">
               <a
                 class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                href="forms.html"
+                href="{% url 'upload_documento' %}"
               >
                 <svg
                   class="w-5 h-5"
@@ -90,7 +90,7 @@
                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
                   ></path>
                 </svg>
-                <span class="ml-4">Forms</span>
+                <span class="ml-4">Inserir Documentos</span>
               </a>
             </li>
             <li class="relative px-6 py-3">
@@ -921,7 +921,7 @@
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
                           <div>
-                            <p class="font-semibold">{{ documento.nome_colaborador }}</p>
+                            <p class="font-semibold">{{ documento.nome }}</p>
                             <p class="text-xs text-gray-600 dark:text-gray-400">
                               {% comment %} 10x Developer {% endcomment %}
                             </p>
@@ -932,21 +932,16 @@
                         {{ documento.tamanho_mb|floatformat:2 }} MB
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        {% if documento.rg and documento.cpf and documento.certidao_nascimento %} 
-                        <span
-                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100"
-                        >
-                        Completo
+                        {% if documento.rg_frente and documento.rg_costas and documento.cpf and documento.certidao_nascimento and documento.cnh_frente and documento.cnh_costas and documento.carteira_de_trabalho_pag_1 and documento.carteira_de_trabalho_pag_2 and documento.carteira_de_vascinacao and documento.comprovante_de_escolaridade and documento.comprovante_de_residencia and documento.curriculo and documento.exame_admissional and documento.formulario_odonto and documento.formulario_vt and documento.formulario_plano_de_saude and documento.reservista and documento.titulo_de_eleitor_frente and documento.titulo_de_eleitor_costas and documento.sus_frente and documento.sus_costas and documento.conta_bancaria and documento.pis %}
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                          Completo
                         </span>
-
                         {% else %}
-
-                        <span
-                          class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700"
-                        >
-                        Incompleto
+                        <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
+                          Incompleto
                         </span>
                         {% endif %}
+                        
                       </td>
                       <td class="px-2 py-3 text-sm">
                         <a href="{% url 'download_documentos_colaborador' documento.id %}"><img src="{% static 'assets_storage/img/download.svg' %}" alt="" class="img-fluid" style="max-height: 25px; text-align: center; padding-left: 1.2rem;"></a>                        

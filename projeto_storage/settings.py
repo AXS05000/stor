@@ -80,7 +80,7 @@ WSGI_APPLICATION = "projeto_storage.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "storage_5",
+        "NAME": "storage_6",
         "USER": "sa",
         "PASSWORD": "2241",
         "HOST": "localhost",
