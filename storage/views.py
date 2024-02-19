@@ -27,11 +27,12 @@ def listar_documentos(request):
 class HomeListarDocumentosView(ListView):
     model = DocumentoColaborador
     template_name = "home.html"
-    paginate_by = 2
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        documentos = context.get("object_list")
+        documentos = DocumentoColaborador.objects.all()
+        incompletos = 0
         for documento in documentos:
             tamanho_total = 0
             if documento.rg:
@@ -41,6 +42,9 @@ class HomeListarDocumentosView(ListView):
             if documento.certidao_nascimento:
                 tamanho_total += documento.certidao_nascimento.size
             documento.tamanho_mb = tamanho_total / (1024 * 1024)
+            if not (documento.rg and documento.cpf and documento.certidao_nascimento):
+                incompletos += 1
+        context["incompletos"] = incompletos
         return context
 
 
