@@ -31,7 +31,7 @@ class HomeListarDocumentosView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        documentos = DocumentoColaborador.objects.all()
+        documentos = context["object_list"]  # Usa a paginação
         incompletos = 0
         for documento in documentos:
             tamanho_total = 0
