@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.core.files.base import ContentFile
 from io import BytesIO
 from django.views.generic import ListView
+from django.db.models import Sum
 
 
 def listar_documentos(request):
@@ -31,20 +32,35 @@ class HomeListarDocumentosView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        documentos = context["object_list"]  # Usa a paginação
+        documentos = context["object_list"]  # Aqui estamos utilizando a paginação
         incompletos = 0
+        tamanho_total_bytes = 0
+
         for documento in documentos:
-            tamanho_total = 0
+            tamanho_documento_bytes = 0
             if documento.rg:
-                tamanho_total += documento.rg.size
+                tamanho_documento_bytes += documento.rg.size
             if documento.cpf:
-                tamanho_total += documento.cpf.size
+                tamanho_documento_bytes += documento.cpf.size
             if documento.certidao_nascimento:
-                tamanho_total += documento.certidao_nascimento.size
-            documento.tamanho_mb = tamanho_total / (1024 * 1024)
+                tamanho_documento_bytes += documento.certidao_nascimento.size
+
+            tamanho_total_bytes += tamanho_documento_bytes
+
+            # Aqui calculamos o tamanho em MB de cada documento e adicionamos como atributo do objeto
+            documento.tamanho_mb = tamanho_documento_bytes / (1024 * 1024)
+
             if not (documento.rg and documento.cpf and documento.certidao_nascimento):
                 incompletos += 1
+
+        tamanho_total_mb = tamanho_total_bytes / (1024 * 1024)
+        if tamanho_total_mb >= 1024:
+            context["espaco_utilizado"] = f"{tamanho_total_mb / 1024:.2f} GB"
+        else:
+            context["espaco_utilizado"] = f"{tamanho_total_mb:.2f} MB"
+
         context["incompletos"] = incompletos
+
         return context
 
 
