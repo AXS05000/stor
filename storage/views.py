@@ -63,6 +63,9 @@ class HomeListarDocumentosView(ListView):
         incompletos = 0
         tamanho_total_bytes = 0
 
+        # Adiciona a contagem total de colaboradores
+        total_colaboradores = DocumentoColaborador.objects.count()
+
         campos_documentos = [
             "rg_frente",
             "rg_costas",
@@ -92,7 +95,7 @@ class HomeListarDocumentosView(ListView):
         for documento in documentos:
             tamanho_documento_bytes = 0
             for campo in campos_documentos:
-                arquivo = getattr(documento, campo)
+                arquivo = getattr(documento, campo, None)
                 if arquivo:
                     tamanho_documento_bytes += arquivo.size
 
@@ -108,6 +111,9 @@ class HomeListarDocumentosView(ListView):
             context["espaco_utilizado"] = f"{tamanho_total_mb:.2f} MB"
 
         context["incompletos"] = incompletos
+        context["total_colaboradores"] = (
+            total_colaboradores  # Adiciona o total de colaboradores ao contexto
+        )
         return context
 
 
