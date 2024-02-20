@@ -9,6 +9,7 @@ from io import BytesIO
 from django.views.generic import ListView
 from django.db.models import Sum
 from django.utils import timezone
+from django.db.models import Q
 
 
 def listar_documentos(request):
@@ -55,8 +56,17 @@ def listar_documentos(request):
 
 class HomeListarDocumentosView(ListView):
     model = DocumentoColaborador
-    template_name = "home.html"
-    paginate_by = 2
+    template_name = "index.html"
+    paginate_by = 10
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        order_by = self.request.GET.get("order_by", "-id")
+        if query:
+            return DocumentoColaborador.objects.filter(
+                Q(nome__icontains=query)
+            ).order_by(order_by)
+        return DocumentoColaborador.objects.all().order_by(order_by)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

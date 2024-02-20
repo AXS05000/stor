@@ -9,8 +9,8 @@ from .views import (
 )
 
 urlpatterns = [
+    path("", HomeListarDocumentosView.as_view(), name="index"),
     path("listagem/", listar_documentos, name="listar_documentos"),
-    path("home/", HomeListarDocumentosView.as_view(), name="home_listar_documentos"),
     path("upload_documentos/", upload_documento, name="upload_documento"),
     path(
         "download/documentos/<int:colaborador_id>/",
