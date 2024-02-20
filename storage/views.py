@@ -8,6 +8,7 @@ from django.core.files.base import ContentFile
 from io import BytesIO
 from django.views.generic import ListView
 from django.db.models import Sum
+from django.utils import timezone
 
 
 def listar_documentos(request):
@@ -59,12 +60,13 @@ class HomeListarDocumentosView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        hoje = timezone.now().date()
+        cadastros_hoje = DocumentoColaborador.objects.filter(
+            data_de_criacao=hoje
+        ).count()
         documentos = context["object_list"]
         incompletos = 0
         tamanho_total_bytes = 0
-
-        # Adiciona a contagem total de colaboradores
-        total_colaboradores = DocumentoColaborador.objects.count()
 
         campos_documentos = [
             "rg_frente",
@@ -93,27 +95,28 @@ class HomeListarDocumentosView(ListView):
         ]
 
         for documento in documentos:
-            tamanho_documento_bytes = 0
-            for campo in campos_documentos:
-                arquivo = getattr(documento, campo, None)
-                if arquivo:
-                    tamanho_documento_bytes += arquivo.size
-
+            tamanho_documento_bytes = sum(
+                getattr(documento, campo).size if getattr(documento, campo) else 0
+                for campo in campos_documentos
+            )
             tamanho_total_bytes += tamanho_documento_bytes
             documento.tamanho_mb = tamanho_documento_bytes / (1024 * 1024)
-            if not all([getattr(documento, campo) for campo in campos_documentos[:3]]):
+            if not all(getattr(documento, campo) for campo in campos_documentos[:3]):
                 incompletos += 1
 
         tamanho_total_mb = tamanho_total_bytes / (1024 * 1024)
+        total_colaboradores = DocumentoColaborador.objects.count()
         if tamanho_total_mb >= 1024:
             context["espaco_utilizado"] = f"{tamanho_total_mb / 1024:.2f} GB"
         else:
             context["espaco_utilizado"] = f"{tamanho_total_mb:.2f} MB"
 
         context["incompletos"] = incompletos
-        context["total_colaboradores"] = (
-            total_colaboradores  # Adiciona o total de colaboradores ao contexto
+        context["total_colaboradores"] = total_colaboradores
+        context["cadastros_hoje"] = (
+            cadastros_hoje  # Adiciona a contagem de cadastros de hoje ao contexto
         )
+
         return context
 
 
