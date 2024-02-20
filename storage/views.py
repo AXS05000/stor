@@ -10,6 +10,7 @@ from django.views.generic import ListView
 from django.db.models import Sum
 from django.utils import timezone
 from django.db.models import Q
+from django.views.generic.edit import CreateView
 
 
 def listar_documentos(request):
@@ -185,3 +186,13 @@ def download_documentos_colaborador(request, colaborador_id):
     zip_file.seek(0)
     response.write(zip_file.read())
     return response
+
+
+def forms(request, exception):
+    return render(request, "forms.html")
+
+
+class FormsView(CreateView):
+    model = DocumentoColaborador
+    form_class = DocumentoColaboradorForm
+    template_name = "forms.html"
