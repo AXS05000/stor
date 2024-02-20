@@ -1,6 +1,18 @@
 from django.db import models
 from django.utils.text import slugify
 import os
+from usuarios.models import CustomUsuario
+
+
+class Base(models.Model):
+    data_de_criacao = models.DateField("Data de Criação", auto_now_add=True)
+    data_de_modificacao = models.DateField("Data de Modificação", auto_now=True)
+    usuario_modificacao = models.ForeignKey(
+        CustomUsuario, on_delete=models.SET_NULL, null=True, blank=True
+    )
+
+    class Meta:
+        abstract = True
 
 
 def documento_colaborador_directory_path(instance, filename, doc_type):
@@ -131,7 +143,7 @@ def pis_directory_path(instance, filename):
     return documento_colaborador_directory_path(instance, filename, "pis")
 
 
-class DocumentoColaborador(models.Model):
+class DocumentoColaborador(Base):
     nome = models.CharField(max_length=100)
     rg_frente = models.FileField(
         upload_to=rg_frente_directory_path, blank=True, null=True
