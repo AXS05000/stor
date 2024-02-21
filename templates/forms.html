@@ -867,32 +867,107 @@
 
             <form method="post" enctype="multipart/form-data">
               {% csrf_token %}
-              {{ form.nome }}
-              {{ form.rg_frente }}
-              {{ form.rg_costas }}
-              {{ form.cpf }}
-              {{ form.certidao_nascimento }}
-              {{ form.cnh_frente }}
-              {{ form.cnh_costas }}
-              {{ form.carteira_de_trabalho_pag_1 }}
-              {{ form.carteira_de_trabalho_pag_2 }}
-              {{ form.carteira_de_vascinacao }}
-              {{ form.comprovante_de_escolaridade }}
-              {{ form.comprovante_de_residencia }}
-              {{ form.curriculo }}
-              {{ form.exame_admissional }}
-              {{ form.formulario_odonto }}
-              {{ form.formulario_vt }}
-              {{ form.formulario_plano_de_saude }}
-              {{ form.reservista }}
-              {{ form.titulo_de_eleitor_frente }}
-              {{ form.titulo_de_eleitor_costas }}
-              {{ form.sus_frente }}
-              {{ form.sus_costas }}
-              {{ form.conta_bancaria }}
-              {{ form.pis }}
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Nome:</span>
+                {{ form.nome }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Frente do RG:</span>
+                {{ form.rg_frente }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Costas do RG:</span>
+                {{ form.rg_costas }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar CPF:</span>
+                {{ form.cpf }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Certidão de Nascimento:</span>
+                {{ form.certidao_nascimento }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Frente da CNH:</span>
+                {{ form.cnh_frente }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Costas da CNH:</span>
+                {{ form.cnh_costas }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Carteira de Trabalho Página 1:</span>
+                {{ form.carteira_de_trabalho_pag_1 }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Carteira de Trabalho Página 2:</span>
+                {{ form.carteira_de_trabalho_pag_2 }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Carteira de Vacinação:</span>
+                {{ form.carteira_de_vascinacao }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Comprovante de Escolaridade:</span>
+                {{ form.comprovante_de_escolaridade }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Comprovante de Residência:</span>
+                {{ form.comprovante_de_residencia }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Currículo:</span>
+                {{ form.curriculo }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Exame Admissional:</span>
+                {{ form.exame_admissional }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Formulário Odontológico:</span>
+                {{ form.formulario_odonto }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Formulário de Vale-Transporte:</span>
+                {{ form.formulario_vt }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Formulário do Plano de Saúde:</span>
+                {{ form.formulario_plano_de_saude }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Reservista:</span>
+                {{ form.reservista }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Título de Eleitor Frente:</span>
+                {{ form.titulo_de_eleitor_frente }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Título de Eleitor Costas:</span>
+                {{ form.titulo_de_eleitor_costas }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Cartão SUS Frente:</span>
+                {{ form.sus_frente }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Cartão SUS Costas:</span>
+                {{ form.sus_costas }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar Comprovante de Conta Bancária:</span>
+                {{ form.conta_bancaria }}
+              </div>
+              <div>
+                <span class="text-gray-700 dark:text-gray-400">Selecionar PIS:</span>
+                {{ form.pis}}
+              </div>
               
-              <button type="submit">Upload</button>
+              
+              <button style="margin-top: 1rem;"type="submit" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                Enviar
+              </button>
             </form>
 
 
