@@ -15,6 +15,30 @@
       defer
     ></script>
     <script src="{% static 'assets_storage/js/init-alpine.js' %}"></script>
+    
+    {% comment %} <style>
+      .custom-file-upload {
+        cursor: pointer;
+        color: white; /* Exemplo de cor do texto */
+    }
+    
+    .custom-file-upload svg {
+        fill: white; /* Cor do SVG */
+    }
+    
+    input[type="file"] {
+        display: none;
+    }
+
+ 
+  .svg-icon {
+      /* Adjust width and height as needed */
+      width: 20px;
+      height: 20px;
+      margin-right: 8px; /* Add some space between the icon and the text */
+  }
+    
+    </style> {% endcomment %}
   </head>
   <body>
     <div
@@ -839,13 +863,38 @@
             <div
               class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
-              <label class="block text-sm">
-                <span class="text-gray-700 dark:text-gray-400">Name</span>
-                <input
-                  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                  placeholder="Jane Doe"
-                />
-              </label>
+
+
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form.nome }}
+              {{ form.rg_frente }}
+              {{ form.rg_costas }}
+              {{ form.cpf }}
+              {{ form.certidao_nascimento }}
+              {{ form.cnh_frente }}
+              {{ form.cnh_costas }}
+              {{ form.carteira_de_trabalho_pag_1 }}
+              {{ form.carteira_de_trabalho_pag_2 }}
+              {{ form.carteira_de_vascinacao }}
+              {{ form.comprovante_de_escolaridade }}
+              {{ form.comprovante_de_residencia }}
+              {{ form.curriculo }}
+              {{ form.exame_admissional }}
+              {{ form.formulario_odonto }}
+              {{ form.formulario_vt }}
+              {{ form.formulario_plano_de_saude }}
+              {{ form.reservista }}
+              {{ form.titulo_de_eleitor_frente }}
+              {{ form.titulo_de_eleitor_costas }}
+              {{ form.sus_frente }}
+              {{ form.sus_costas }}
+              {{ form.conta_bancaria }}
+              {{ form.pis }}
+              
+              <button type="submit">Upload</button>
+            </form>
+
 
               <div class="mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">

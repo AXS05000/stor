@@ -11,6 +11,7 @@ from django.db.models import Sum
 from django.utils import timezone
 from django.db.models import Q
 from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
 
 def listar_documentos(request):
@@ -136,7 +137,7 @@ def upload_documento(request):
         form = DocumentoColaboradorForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect("home_listar_documentos")
+            return redirect("index")
     else:
         form = DocumentoColaboradorForm()
     return render(request, "upload_documento.html", {"form": form})
@@ -196,3 +197,4 @@ class FormsView(CreateView):
     model = DocumentoColaborador
     form_class = DocumentoColaboradorForm
     template_name = "forms.html"
+    success_url = reverse_lazy("index")
